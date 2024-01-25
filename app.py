@@ -140,11 +140,10 @@ header{visibility:hidden;}
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
-# Create a bar chart using Plotly Express
-fig = px.bar(df_selection, x='Ship Mode', color_continuous_scale="ice",
-             color='Category', labels={'ship_mode': 'Ship Mode', 'category': 'Category'},
-             title='Category Distribution for Ship Mode',
-             )
+fig = px.histogram(df_selection, x="Ship Mode", color='Category',
+                   labels={'ship_mode': 'Ship Mode', 'category': 'Category'},
+                   color_discrete_map={'Office Supplies': '#7FD4C1', 'Technology': '#30BFDD', 'Furniture': '#8690FF'},
+                   title='Category Distribution for Ship Mode')
 
 # Customize the layout
 fig.update_xaxes(categoryorder="total descending")
