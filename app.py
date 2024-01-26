@@ -82,6 +82,8 @@ with right_column:
 
 st.markdown("---")
 # SALES BY MONTH (Line CHART)
+cats = ['Jan', 'Feb', 'Mar', 'Apr','May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+df_selection['Month'] = pd.Categorical(df_selection['Month'],categories=cats, ordered=True)
 monthly_sales = df_selection.groupby(["Month", "State"])["Sales"].sum().reset_index()
 
 
