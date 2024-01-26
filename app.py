@@ -18,7 +18,7 @@ def get_data():
     data["Order Date"] = pd.to_datetime(data["Order Date"], format="%d/%m/%Y", errors="coerce")
     data["Ship Date"] = pd.to_datetime(data["Ship Date"], format="%d/%m/%Y", errors="coerce")
 
-    data["Month"] = data["Order Date"].dt.strftime("%b")
+    data["Month"] = data["Order Date"].dt.month
     data["Year"] = data["Order Date"].dt.year
 
     column_selection = ['Customer ID', "Order Date", "Ship Date", "Ship Mode", "Segment", "State",
@@ -81,12 +81,14 @@ with right_column:
 
 
 st.markdown("---")
-month_order = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-monthly_sales = df_selection.groupby("Month")["Sales"].sum().reindex(month_order).reset_index()
-fig1 = px.line(monthly_sales, x="Month", y="Sales", title="Monthly Sales ")
+# SALES BY MONTH (Line CHART)
+monthly_sales = df_selection.groupby(["Month", "State"])["Sales"].sum().reset_index()
 
-fig1.update_layout(xaxis_title=None)
+
+fig1 = px.line(monthly_sales, x="Month", y="Sales", color="State", title="Monthly Sales ")
+
 st.plotly_chart(fig1, use_container_width=True)
+
 st.markdown("---")
 # SALES BY SUB CATEGORY (BAR CHART)
 
