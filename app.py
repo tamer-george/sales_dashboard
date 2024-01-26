@@ -18,7 +18,7 @@ def get_data():
     data["Order Date"] = pd.to_datetime(data["Order Date"], format="%d/%m/%Y", errors="coerce")
     data["Ship Date"] = pd.to_datetime(data["Ship Date"], format="%d/%m/%Y", errors="coerce")
 
-    data["Month"] = data["Order Date"].dt.month
+    data["Month"] = data['Order Date'].apply(lambda x: x.strftime('%b'))
     data["Year"] = data["Order Date"].dt.year
 
     column_selection = ['Customer ID', "Order Date", "Ship Date", "Ship Mode", "Segment", "State",
